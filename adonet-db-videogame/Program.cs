@@ -7,8 +7,8 @@ while (true)
 {
     Console.WriteLine(@"
 - 1: Create VideoGames 
-- 2: Show VideoGames by id
-- 3: Modify VideoGames
+- 2: Show VideoGames by Id
+- 3: Search Videogames by String
 - 4: Delete VideoGames
 - 5: Exit 
 
@@ -45,10 +45,6 @@ while (true)
                     Console.WriteLine("Game not created!");
                 }
 
-
-
-
-
             }
             break;
 
@@ -70,6 +66,33 @@ while (true)
 
             break;
 
+        case 3:
+            {
+                Console.WriteLine("Insert a string");
+                string gamestring = Console.ReadLine();
+
+                List<Videogame> videogames = VideogameManager.GetVideogamesByString($"%{gamestring}%");
+
+                if (videogames != null && videogames.Count > 0)
+                {
+                    Console.WriteLine("Here the games founded:");
+
+                    foreach (Videogame vg in videogames)
+                    {
+                        Console.WriteLine(vg.Name);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No game found.");
+                }
+
+                return;
+            }
+
+            case 4:
+            return;
+
         case 5:
             Console.WriteLine("Exiting the program...");
             return;
@@ -83,3 +106,4 @@ while (true)
 
 
 }
+
