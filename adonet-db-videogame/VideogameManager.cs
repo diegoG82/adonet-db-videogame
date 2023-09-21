@@ -6,6 +6,7 @@ namespace adonet_db_videogame
     {
         private static string connectionString = "Data Source = localhost; Initial Catalog = vg_database; Integrated Security = True; Pooling = False";
 
+        //CREATE
         public static bool AddVideogame(Videogame videogame)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -123,6 +124,42 @@ namespace adonet_db_videogame
 
             return null;
         }
+
+        //DELETE
+        public static bool DeleteVideogame(long idToDelete)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+                try
+                {
+                    connection.Open();
+
+                    string query = "DELETE FROM videogames WHERE id=@Id";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.Add(new SqlParameter("@Id", idToDelete));
+
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        return true;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                return false;
+
+            }
+
+        }
+
 
     }
 }

@@ -65,7 +65,7 @@ while (true)
             }
 
             break;
-
+        //FILTER BY STRING
         case 3:
             {
                 Console.WriteLine("Insert a string");
@@ -90,8 +90,24 @@ while (true)
                 return;
             }
 
-            case 4:
-            return;
+        case 4:
+            Console.Write("Insert the Game Id you want to delete: ");
+            long idgametodelete = long.Parse(Console.ReadLine());
+
+            bool deleted = VideogameManager.DeleteVideogame(idgametodelete);
+
+            if (deleted)
+            {
+                Console.WriteLine("Your game was deleted!");
+            }
+            else
+            {
+                Console.WriteLine("Your game is immortal!");
+            }
+
+            break;
+
+
 
         case 5:
             Console.WriteLine("Exiting the program...");
