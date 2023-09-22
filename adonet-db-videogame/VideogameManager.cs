@@ -17,19 +17,19 @@ namespace adonet_db_videogame
 
                     string query = "INSERT INTO videogames (name, overview, release_date, software_house_id) VALUES (@name, @overview, @releaseDate, @softwareHouseId);";
 
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@name", videogame.Name);
-                        command.Parameters.AddWithValue("@overview", videogame.Overview);
-                        command.Parameters.AddWithValue("@releaseDate", videogame.ReleaseDate);
-                        command.Parameters.AddWithValue("@softwareHouseId", videogame.SoftwareHouseId);
+                    SqlCommand cmd = new SqlCommand(query, connection);
 
-                        int row = command.ExecuteNonQuery();
-                        if (row > 0)
-                        {
-                            return true;
-                        }
+                    cmd.Parameters.AddWithValue("@name", videogame.Name);
+                    cmd.Parameters.AddWithValue("@overview", videogame.Overview);
+                    cmd.Parameters.AddWithValue("@releaseDate", videogame.ReleaseDate);
+                    cmd.Parameters.AddWithValue("@softwareHouseId", videogame.SoftwareHouseId);
+
+                    int row = cmd.ExecuteNonQuery();
+                    if (row > 0)
+                    {
+                        return true;
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -126,7 +126,7 @@ namespace adonet_db_videogame
         }
 
         //DELETE
-        public static bool DeleteVideogame(long idToDelete)
+        public static bool DeleteVideogame(long idgametodelete)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -135,10 +135,10 @@ namespace adonet_db_videogame
                 {
                     connection.Open();
 
-                    string query = "DELETE FROM videogames WHERE id=@Id";
+                    string query = "DELETE  FROM videogames WHERE id=@Id";
 
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.Add(new SqlParameter("@Id", idToDelete));
+                    cmd.Parameters.Add(new SqlParameter("@Id", idgametodelete));
 
 
                     int rowsAffected = cmd.ExecuteNonQuery();
